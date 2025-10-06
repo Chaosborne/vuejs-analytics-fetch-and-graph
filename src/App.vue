@@ -1,32 +1,15 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-
-import { onMounted } from 'vue';
-import { fetchStocks } from './api/stocks';
-
-onMounted(async () => {
-  try {
-    const data = await fetchStocks({ dateFrom: '2025-10-06' });
-    console.log('stocks sample:', data);
-  } catch (e) {
-    console.error('stocks error:', e);
-  }
-});
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <nav>
+      <RouterLink to="/stocks">Stocks</RouterLink>
+      <RouterLink to="/incomes">Incomes</RouterLink>
+      <RouterLink to="/sales">Sales</RouterLink>
+      <RouterLink to="/orders">Orders</RouterLink>
+    </nav>
   </header>
 
   <RouterView />
@@ -36,11 +19,6 @@ onMounted(async () => {
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
@@ -73,16 +51,6 @@ nav a:first-of-type {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
   }
 
   nav {
