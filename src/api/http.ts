@@ -13,13 +13,23 @@ function createHttpClient(): AxiosInstance {
   });
 
   instance.interceptors.request.use((config) => {
-    const params = new URLSearchParams(config.params as Record<string, string> | undefined);
+    const rawParams = (config.params ?? {}) as Record<string, unknown>
 
-    if (!params.has('key') && apiKey) params.set('key', apiKey);
-    if (!params.has('page')) params.set('page', String(defaultPage));
-    if (!params.has('limit')) params.set('limit', String(defaultLimit));
+    // Собираем финальные параметры, отфильтровывая undefined/пустые строки
+    const finalParams: Record<string, string> = {}
+    for (const [k, v] of Object.entries(rawParams)) {
+      if (v === undefined || v === null) continue
+      const str = String(v)
+      if (str === '' || str === 'undefined' || str === 'null') continue
+      finalParams[k] = str
+    }
 
-    config.params = Object.fromEntries(params.entries());
+    // Гарантируем наличие ключевых параметров
+    if (!('key' in finalParams) && apiKey) finalParams.key = apiKey
+    if (!('page' in finalParams)) finalParams.page = String(defaultPage)
+    if (!('limit' in finalParams)) finalParams.limit = String(defaultLimit)
+
+    config.params = finalParams
     return config;
   });
 
