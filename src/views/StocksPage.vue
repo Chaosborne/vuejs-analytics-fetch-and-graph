@@ -232,7 +232,8 @@ onMounted(() => {
 
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
     <div class="table-wrap">
-      <table v-show="!errorMessage && filteredItems.length" class="data-table">
+      <div class="table-scroll" v-show="!errorMessage && filteredItems.length">
+        <table class="data-table">
       <thead>
         <tr>
           <th>date</th>
@@ -273,7 +274,21 @@ onMounted(() => {
           <td>{{ row.discount }}</td>
         </tr>
       </tbody>
-      </table>
+        </table>
+      </div>
+
+      <div class="responsive-cards" v-show="!errorMessage && filteredItems.length">
+        <article class="card" v-for="(row, idx) in filteredItems" :key="`c-` + idx">
+          <div class="card-row"><span class="k">date</span><span class="v">{{ row.date }}</span></div>
+          <div class="card-row"><span class="k">brand</span><span class="v">{{ row.brand }}</span></div>
+          <div class="card-row"><span class="k">supplier_article</span><span class="v">{{ row.supplier_article }}</span></div>
+          <div class="card-row"><span class="k">warehouse_name</span><span class="v">{{ row.warehouse_name }}</span></div>
+          <div class="card-row"><span class="k">quantity_full</span><span class="v">{{ row.quantity_full }}</span></div>
+          <div class="card-row"><span class="k">quantity</span><span class="v">{{ row.quantity }}</span></div>
+          <div class="card-row"><span class="k">nm_id</span><span class="v">{{ row.nm_id }}</span></div>
+          <div class="card-row"><span class="k">subject</span><span class="v">{{ row.subject }}</span></div>
+        </article>
+      </div>
 
       <p v-show="!errorMessage && !filteredItems.length" class="no-data">Нет данных</p>
 
@@ -313,9 +328,32 @@ h1 {
   border-collapse: collapse;
   margin-top: 1.5rem;
 }
+.data-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-background);
+  z-index: 2;
+}
+.data-table th:first-child,
+.data-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--color-background);
+  z-index: 4;
+  border-right: none;
+  transform: translateX(-1px);
+  background-clip: padding-box;
+}
+.data-table th:first-child { z-index: 5; }
+
 .table-wrap {
   position: relative;
   min-height: 240px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  background: var(--color-background);
 }
 
 .loading-overlay {
@@ -333,13 +371,28 @@ h1 {
   margin-top: 1rem;
 }
 
-
 .data-table th,
 .data-table td {
   border: 1px solid var(--color-border);
   padding: 0.4rem 0.5rem;
   font-size: 0.9rem;
 }
+
+.responsive-cards { display: none; }
+.responsive-cards .card {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  margin-top: 0.75rem;
+}
+.responsive-cards .card-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+.responsive-cards .k { opacity: 0.8; }
+.responsive-cards .v { text-align: right; }
 
 .error {
   color: #b00020;
@@ -358,11 +411,15 @@ h1 {
   margin: 1.25rem 0;
 }
 
-/* гарантируем, что canvas не абсолютный и занимает высоту контейнера */
 .chart-wrap :deep(canvas) {
   display: block;
   position: relative !important;
   height: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .table-scroll { display: none; }
+  .responsive-cards { display: block; }
 }
 </style>
 
