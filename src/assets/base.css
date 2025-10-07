@@ -84,3 +84,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+select, input {
+  background: var(--color-background);
+  color: var(--color-text);
+  border: 1px solid;
+  height: 22px;
+}
+
+input {
+  padding-left: 5px;
+}
