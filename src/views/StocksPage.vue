@@ -94,7 +94,8 @@ const topBrandsData = computed(() => {
       {
         label: 'Quantity by Brand',
         data: entries.map(([, sum]) => sum),
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        backgroundColor: 'hsl(207, 70%, 40%)',
+        hoverBackgroundColor: 'hsl(207, 82%, 42%)',
       },
     ],
   }
@@ -109,6 +110,9 @@ const chartOptions = computed(() => {
       y: {
         beginAtZero: true,
         suggestedMin: 0,
+        grid: {
+          color: 'rgba(255,255,255,0.03)',
+        },
         ticks: {
           precision: 0,
           stepSize: 1,
@@ -215,7 +219,7 @@ onMounted(() => {
         limit
         <input type="number" v-model.number="limit" min="1" max="500" step="1" />
       </label>
-      <button type="submit">Apply</button>
+      <button class="submit-btn" type="submit">Apply</button>
     </form>
 
     <div class="data-note">Данные на сегодня</div>
@@ -303,8 +307,16 @@ h1 {
   margin-bottom: 0.75rem;
 }
 
+.submit-btn {
+  height: 22px;
+  background-color:  #00bd7e;
+  color: #FFFFFF;
+  border: none;
+}
+
 .filters {
   display: grid;
+  align-items: end;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.5rem;
   margin-bottom: 0.75rem;
@@ -408,7 +420,8 @@ h1 {
 .chart-wrap {
   position: relative;
   height: 390px;
-  margin: 1.25rem 0;
+  margin-top: 1.25rem;
+  margin-bottom: 3rem;
 }
 
 .chart-wrap :deep(canvas) {
