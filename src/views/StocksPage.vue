@@ -77,6 +77,20 @@ const filteredItems = computed(() => {
   })
 })
 
+// Окно страниц для числовой пагинации (без знания total)
+const pagesWindow = computed(() => {
+  const windowSize = 5
+  const half = Math.floor(windowSize / 2)
+  const start = Math.max(1, page.value - half)
+  const end = page.value + half
+  const pages: number[] = []
+  for (let p = start; p <= end; p++) pages.push(p)
+  return pages
+})
+
+const firstPageInWindow = computed<number>(() => (pagesWindow.value.length ? pagesWindow.value[0]! : 1))
+const hasLeading = computed(() => firstPageInWindow.value > 1)
+
 // Данные для графика: брендов по сумме quantity_full (по отфильтрованным данным)
 const topBrandsData = computed(() => {
   const totals = new Map<string, number>()
@@ -185,6 +199,12 @@ function nextPage() {
   loadStocks()
 }
 
+function goToPage(p: number) {
+  if (p < 1 || p === page.value) return
+  page.value = p
+  loadStocks()
+}
+
 watch(limit, () => {
   page.value = 1
   loadStocks()
@@ -229,9 +249,15 @@ onMounted(() => {
     </div>
 
     <div class="actions">
-      <button :disabled="loading || page === 1" @click="prevPage">Prev</button>
-      <span>Page: {{ page }}</span>
-      <button :disabled="loading" @click="nextPage">Next</button>
+      <button class="pg" :disabled="loading || page === 1" @click="prevPage">Prev</button>
+      <div class="pages">
+        <template v-if="hasLeading">
+          <button class="pg" :disabled="loading || page === 1" @click="goToPage(1)">1</button>
+          <span class="dots">...</span>
+        </template>
+        <button class="pg" v-for="p in pagesWindow" :key="p" :class="{ active: p === page }" :disabled="loading || p === page" @click="goToPage(p)">{{ p }}</button>
+      </div>
+      <button class="pg" :disabled="loading" @click="nextPage">Next</button>
     </div>
 
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
@@ -334,6 +360,16 @@ h1 {
   gap: 0.5rem;
   margin-bottom: 1.25rem;
 }
+.actions .pages { display: inline-flex; align-items: center; gap: 0.25rem; }
+.actions .pg {
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-background);
+  color: inherit;
+}
+.actions .pg.active { background: var(--color-border); }
+.actions .dots { opacity: 0.6; padding: 0 0.25rem; }
 
 .data-table {
   width: 100%;
