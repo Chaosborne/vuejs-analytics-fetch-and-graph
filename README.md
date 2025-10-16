@@ -1,73 +1,65 @@
-# .
+# Vue.js Analytics Dashboard
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue.js dashboard for analytics data visualization with API integration, interactive charts, and real-time filtering capabilities.
 
-## Recommended IDE Setup
+## 🚀 Features
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Interactive Charts** - Horizontal bar charts using Chart.js
+- **Real-time Data** - Fetches data from REST APIs
+- **Multi-dimensional Filtering** - Filter by brand, warehouse, category
+- **Responsive Design** - Mobile-optimized with card layouts
+- **Pagination** - Efficient data browsing
+- **TypeScript** - Type-safe development
 
-## Recommended Browser Setup
+## 📊 Pages
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **Stocks** - Inventory data visualization
+- **Incomes** - Revenue analytics by warehouse
+- **Sales** - Sales performance metrics
+- **Orders** - Order tracking and analysis
 
-## Type Support for `.vue` Imports in TS
+## 🛠️ Tech Stack
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- **Vue 3** with Composition API
+- **TypeScript** for type safety
+- **Chart.js** for data visualization
+- **Vite** for fast development
+- **CSS Grid** for responsive layouts
 
-## Customize configuration
+## 🏃‍♂️ Quick Start
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
+# Install dependencies
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Start development server
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+# Build for production
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## 📱 Screenshots
 
-```sh
-npm run test:unit
+The dashboard features:
+- Clean, modern interface
+- Interactive filtering controls
+- Responsive charts
+- Mobile-friendly design
+
+## 🔧 Configuration
+
+Set up your API endpoint in the environment variables:
+
+```env
+VITE_API_BASE_URL=your_api_url
+VITE_API_KEY=your_api_key
 ```
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+## 📄 License
 
-```sh
-# Install browsers for the first run
-npx playwright install
+MIT License - feel free to use this project for learning and development.
 
-# When testing on CI, must build the project first
-npm run build
+---
 
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+Built with ❤️ using Vue.js
